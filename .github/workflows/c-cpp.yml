@@ -1,0 +1,22 @@
+name: Build BadApple
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          choco install libpng -y
+          refreshenv
+
+      - name: Build solution
+        run: |
+          msbuild BadApple.sln /p:Configuration=Release /p:Platform=x64
