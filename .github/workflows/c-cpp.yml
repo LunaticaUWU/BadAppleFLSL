@@ -27,4 +27,5 @@ jobs:
           .\vcpkg\vcpkg install libpng:x64-windows
           
       - name: Build solution
-        run: msbuild BadApple.sln /p:Configuration=Release /p:Platform=x64
+        run: |
+          msbuild BadApple.sln /p:Configuration=Release /p:Platform=x64 /p:VcpkgEnabled=true /p:VcpkgTriplet=x64-windows
