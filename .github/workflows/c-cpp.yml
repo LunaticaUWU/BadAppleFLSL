@@ -17,9 +17,14 @@ jobs:
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v1
 
+      - name: Install vcpkg
+        run: |
+          git clone https://github.com/microsoft/vcpkg.git vcpkg
+          .\vcpkg\bootstrap-vcpkg.bat
+
       - name: Install libpng
         run: |
-          choco install libpng -y
-          refreshenv
+          .\vcpkg\vcpkg install libpng:x64-windows
+          
       - name: Build solution
         run: msbuild BadApple.sln /p:Configuration=Release /p:Platform=x64
