@@ -1,9 +1,8 @@
 name: Build BadApple
 
-
 on:
   push:
-    branches: 
+    branches:
       - main
   pull_request:
   workflow_dispatch:
@@ -15,15 +14,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install dependencies
-        run: |
-          choco install libpng -y
-          refreshenv
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1
+
+      - name: Install libpng
+        run: choco install libpng -y
 
       - name: Build solution
-        shell: pwsh
-        run: |
-          $vswhere = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe"
-          $vsPath = & $vswhere -latest -products * -requires Microsoft.Component.MSBuild -property installationPath
-          $msbuild = Join-Path $vsPath "MSBuild\Current\Bin\MSBuild.exe"
-          & $msbuild BadApple.sln /p:Configuration=Release /p:Platform=x64
+        run: msbuild BadApple.sln /p:Configuration=Release /p:Platform=x64
