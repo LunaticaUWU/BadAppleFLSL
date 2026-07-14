@@ -18,7 +18,8 @@ jobs:
         uses: microsoft/setup-msbuild@v1
 
       - name: Install libpng
-        run: choco install libpng -y
-
+        run: |
+          choco install libpng -y
+          refreshenv
       - name: Build solution
         run: msbuild BadApple.sln /p:Configuration=Release /p:Platform=x64
