@@ -21,9 +21,9 @@ jobs:
           refreshenv
 
       - name: Build solution
-  shell: pwsh
-  run: |
-    $vswhere = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe"
-    $vsPath = & $vswhere -latest -products * -requires Microsoft.Component.MSBuild -property installationPath
-    $msbuild = Join-Path $vsPath "MSBuild\Current\Bin\MSBuild.exe"
-    & $msbuild BadApple.sln /p:Configuration=Release /p:Platform=x64
+        shell: pwsh
+        run: |
+          $vswhere = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe"
+          $vsPath = & $vswhere -latest -products * -requires Microsoft.Component.MSBuild -property installationPath
+          $msbuild = Join-Path $vsPath "MSBuild\Current\Bin\MSBuild.exe"
+          & $msbuild BadApple.sln /p:Configuration=Release /p:Platform=x64
